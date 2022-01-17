@@ -1,0 +1,21 @@
+<%= form_with(model: user, local:true) do |f|%>
+<%= render "errors", object: user%>
+
+<%= f.label :name %> 
+<%= f.text_field(:name)%> 
+
+<%= f.label(:email)%>
+<%= f.text_field(:email)%>
+
+<%= f.label(:password)%>
+<%= f.text_field(:password)%>
+
+<%= f.label(:password_confirmation)%>
+<%= f.text_field(:password_confirmation)%>
+
+<% if user.new_record? %>
+  <%= f.submit  "Create Account"  %>
+<%else%>
+   <%= f.submit  "Update Account"  %>
+<%end%>
+<%end%>

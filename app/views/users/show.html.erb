@@ -1,0 +1,52 @@
+<section class="user"  style="text-align:center">
+  <h1><%= @user.name %></h1>
+  <h2><%= mail_to(@user.email) %></h2>
+  <div class="actions">
+    <%if current_user?(@user)%>
+      <%= link_to "Edit Account", edit_user_path(@user), class: "button edit" %>
+      <%= link_to 'Delete Account', @user, method: :delete,
+                   data: { confirm: "Permanently delete your account!?" },
+                   class: "button delete" %>
+    <%end%> 
+  </div>
+</section>
+
+
+  <% if !@freinds.empty? %>
+    <h2> <i> Freind List </i> </h2>
+    <% @freinds.each do |freind| %>
+      <li>
+        <%=link_to freind.name, freind %> : <%=freind.email%> 
+        <%= link_to "UnFollow", unfollow_url(@invoice, :freind => freind.id) %>
+      </li>
+    <%end%>
+  <% else %>
+    <h2> No Freinds ! </h2>
+  <%end%>
+
+  <% if (current_user?(@user) & !@requests.empty?) %>
+    <h2> <i> Freind Request </i> </h2>
+    <% @requests.each do |request| %>
+      <li>
+        <%=link_to request.name, request %> : <%=request.email%>
+        <%= link_to "Accept", accept_url(@invoice, :status1 => "accepted", :status2 => "accepted",:freind => request.id) %>
+        <%= link_to "Delete", unfollow_url(@invoice, :freind => request.id) %>
+      </li>
+    <%end%>
+  <%else%>
+    <h2> 0 Request ! </h2>
+  <%end%>
+
+  <% if (current_user?(@user) & !@pending.empty?) %>
+    <h2> <i> ! People, You sent request ! </i> </h2>
+    <% @pending.each do |pen| %>
+      <li>
+        <%=link_to pen.name, pen %> : <%=pen.email%>
+        <%= link_to "undo", unfollow_url(@invoice, :freind => pen.id) %>
+      </li>
+    <%end%>
+  <%else%>
+    <h2> 0 Request ! </h2>
+  <%end%>
+
+

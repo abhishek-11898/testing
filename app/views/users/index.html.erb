@@ -1,0 +1,25 @@
+<h1  style="text-align:center"> Welcome To Facebook ! </h1>
+<%if current_user%>
+  <ul style= "test-align:center">
+    <h2> Users using Facebook ! </h2>
+    <% @users.each do  |user| %>
+      <% if user_status(user) == "accepted"%>
+          <li> <%=link_to user.name, user  %> ->   <%= link_to "UnFollow", unfollow_url(@invoice, :freind => user.id) %> </li>
+      <%elsif user_status(user) == "requested"%>
+          <li> <%=link_to user.name, user  %> -><%= link_to "Accept", accept_url(@invoice, :status1 => "accepted", :status2 => "accepted",:freind => user.id) %>
+           <%= link_to "Delete", unfollow_url(@invoice, :freind => user.id) %>
+      <% elsif user_status(user) == "pending"%>
+        <li> <%=link_to user.name, user  %> ->   <%= link_to "Undo", unfollow_url(@invoice, :freind => user.id) %> </li>
+      <% else%>
+        <li> <%=link_to user.name, user  %> -> <%= link_to "Follow", follow_url(@invoice, :status1 => "requested", :status2 => "pending", :freind => user.id) %> </li>
+      <%end%>
+    <% end %>
+  </ul>
+<%else%>
+    <div style="text-align:center"> ! Please open Your Account Or Sign iN First ! </div>
+  
+<%end%>
+  
+
+
+

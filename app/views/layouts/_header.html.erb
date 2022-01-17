@@ -1,0 +1,17 @@
+<header>
+  <nav>
+    <%= link_to "FACEBOOK!", root_path %>
+
+     <ul class="right">
+      <% if current_user %>
+        <li><%= link_to current_user.name, current_user%></li>
+        <li><%= link_to "Sign Out", session_path, method: :delete, class: "button"%></li>
+      <% else %>
+        <li>
+         <%= link_to "Sign Up", new_user_path, class: "button" %>
+         <%= link_to "Sign In", new_session_path, class: "button" %>
+        </li>
+      <%end%>
+    </ul>
+  </nav>
+</header>
